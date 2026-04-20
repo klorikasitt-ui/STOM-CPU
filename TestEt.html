@@ -1,0 +1,136 @@
+```html
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STOM CPU - 8-Bit Simülatör</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .led {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            transition: all 0.2s ease;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
+        }
+        .led-off { background-color: #1a202c; border: 2px solid #2d3748; }
+        .led-on-upper { 
+            background-color: #48bb78; 
+            box-shadow: 0 0 20px #48bb78, inset 0 0 10px #276749;
+        }
+        .led-on-lower { 
+            background-color: #ecc94b; 
+            box-shadow: 0 0 20px #ecc94b, inset 0 0 10px #b7791f;
+        }
+        .glass-panel {
+            background: rgba(26, 32, 44, 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+    </style>
+</head>
+<body class="bg-black text-white min-h-screen flex flex-col items-center justify-center font-mono p-4">
+
+    <div class="glass-panel p-8 rounded-3xl shadow-2xl max-w-md w-full text-center border-2 border-green-900">
+        <h1 class="text-2xl font-bold mb-2 tracking-widest text-green-500">STOM CPU</h1>
+        <p class="text-xs text-gray-500 mb-8 uppercase">BURAK YAKUB GÜÇER - 8-BIT DURUM SİSTEMİ</p>
+
+        <div class="mb-12">
+            <p class="text-xs text-gray-400 mb-4 uppercase tracking-tighter">Kontrol Sinyalleri (MSB)</p>
+            <div id="upper-group" class="flex justify-center gap-6 mb-8">
+                <div class="flex flex-col items-center">
+                    <div id="led-7" class="led led-off"></div>
+                    <span class="text-[10px] mt-2 text-gray-600">B7</span>
+                </div>
+                <div class="flex flex-col items-center">
+                    <div id="led-6" class="led led-off"></div>
+                    <span class="text-[10px] mt-2 text-gray-600">B6</span>
+                </div>
+                <div class="flex flex-col items-center">
+                    <div id="led-5" class="led led-off"></div>
+                    <span class="text-[10px] mt-2 text-gray-600">B5</span>
+                </div>
+            </div>
+
+            <p class="text-xs text-gray-400 mb-4 uppercase tracking-tighter">Veri Yolu (LSB)</p>
+            <div id="lower-group" class="flex justify-center gap-4">
+                <div class="flex flex-col items-center">
+                    <div id="led-4" class="led led-off"></div>
+                    <span class="text-[10px] mt-2 text-gray-600">B4</span>
+                </div>
+                <div class="flex flex-col items-center">
+                    <div id="led-3" class="led led-off"></div>
+                    <span class="text-[10px] mt-2 text-gray-600">B3</span>
+                </div>
+                <div class="flex flex-col items-center">
+                    <div id="led-2" class="led led-off"></div>
+                    <span class="text-[10px] mt-2 text-gray-600">B2</span>
+                </div>
+                <div class="flex flex-col items-center">
+                    <div id="led-1" class="led led-off"></div>
+                    <span class="text-[10px] mt-2 text-gray-600">B1</span>
+                </div>
+                <div class="flex flex-col items-center">
+                    <div id="led-0" class="led led-off"></div>
+                    <span class="text-[10px] mt-2 text-gray-600">B0</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="space-y-4">
+            <div class="flex justify-between items-center bg-black/50 p-4 rounded-xl border border-gray-800">
+                <div class="text-left">
+                    <span class="block text-gray-500 text-[10px]">DURUM (DEC)</span>
+                    <span id="counter-dec" class="text-2xl font-bold text-green-400">0</span>
+                </div>
+                <div class="text-right">
+                    <span class="block text-gray-500 text-[10px]">BINARY</span>
+                    <span id="counter-bin" class="text-sm font-bold text-blue-400">00000000</span>
+                </div>
+            </div>
+
+            <button id="clk-btn" class="w-full py-6 bg-green-600 hover:bg-green-500 active:scale-95 transition-all rounded-2xl font-bold text-xl uppercase shadow-lg shadow-green-900/20 border-b-4 border-green-800">
+                TETİKLE (CLOCK)
+            </button>
+            
+            <button id="rst-btn" class="w-full py-2 text-gray-500 hover:text-red-400 transition-colors text-xs uppercase">
+                Sıfırla (Reset)
+            </button>
+        </div>
+    </div>
+
+    <script>
+        let currentState = 0;
+
+        const updateDisplay = () => {
+            const binaryString = currentState.toString(2).padStart(8, '0');
+            
+            document.getElementById('counter-dec').textContent = currentState;
+            document.getElementById('counter-bin').textContent = binaryString;
+
+            for (let i = 0; i < 8; i++) {
+                const led = document.getElementById(`led-${i}`);
+                const isOn = binaryString[7 - i] === '1';
+                
+                led.className = 'led ' + (isOn ? (i >= 5 ? 'led-on-upper' : 'led-on-lower') : 'led-off');
+            }
+        };
+
+        document.getElementById('clk-btn').onclick = () => {
+            currentState = (currentState + 1) % 256;
+            updateDisplay();
+        };
+
+        document.getElementById('rst-btn').onclick = () => {
+            currentState = 0;
+            updateDisplay();
+        };
+
+        updateDisplay();
+    </script>
+</body>
+</html>
+
+```
+  
