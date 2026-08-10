@@ -20,3 +20,6 @@ S.T.O.M. (Stom This Operations Master), mobil ortamda sıfırdan tasarlanmış v
    * MUX üzerinden hangi sonucun seçileceğini belirler ve RAM, ALU ile diğer birimlerin zamanlamasını koordine eder.
 4. Komut ve İşlem Özellikleri
  * İşlem Yeteneği: Hem artırma hem de eksiltme işlemlerini donanımsal olarak aynı anda hesaplayıp, kontrol birimi (CU) denetiminde MUX aracılığıyla seçim yapabilen esnek bir yapıya sahiptir.
+
+
+#lisans: https://www.gnu.org/licenses/gpl-3.0-standalone.html
