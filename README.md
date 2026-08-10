@@ -22,4 +22,4 @@ S.T.O.M. (Stom This Operations Master), mobil ortamda sıfırdan tasarlanmış v
  * İşlem Yeteneği: Hem artırma hem de eksiltme işlemlerini donanımsal olarak aynı anda hesaplayıp, kontrol birimi (CU) denetiminde MUX aracılığıyla seçim yapabilen esnek bir yapıya sahiptir.
 
 
-#lisans: https://www.gnu.org/licenses/gpl-3.0-standalone.html
+*lisans*: GNU GPL ile korunur.
